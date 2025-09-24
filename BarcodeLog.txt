@@ -254,3 +254,11 @@
 2025-09-23 16:17:14.2506 Info AutoReload Config File Monitor starting
 2025-09-23 16:17:14.2630 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
 2025-09-23 16:17:14.2846 Info Configuration initialized.
+2025-09-24 15:30:10.4269 Info Loading assembly name: SiemensDemo
+2025-09-24 15:30:10.4269 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-24 15:30:10.5172 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-24 15:30:10.5172 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=ObservableCollectionLogUI)
+2025-09-24 15:30:10.5284 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-24 15:30:10.5284 Info AutoReload Config File Monitor starting
+2025-09-24 15:30:10.5284 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-24 15:30:10.5600 Info Configuration initialized.

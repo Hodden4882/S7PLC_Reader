@@ -30,7 +30,14 @@ namespace SiemensDemo
         #endregion
         public MainWindow()
         {
-            this.DataContext = new MainViewModel();
+            InitializeComponent();
+        }
+
+        internal MainWindow(MainViewModel vm)
+        {
+            mVM = vm;
+            this.DataContext = vm;
+
             InitializeComponent();
         }
 
