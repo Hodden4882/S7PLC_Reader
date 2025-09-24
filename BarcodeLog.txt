@@ -1,0 +1,256 @@
+2025-09-23 10:48:14.7427 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 10:48:14.7427 Error Error has been raised. Exception: NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+2025-09-23 10:48:14.7881 Error Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+2025-09-23 10:48:14.7881 Error Failed loading from config file location: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   於 NLog.Config.XmlLoggingConfiguration..ctor(TextReader xmlSource, String filePath, LogFactory logFactory)
+   於 NLog.Config.LoggingConfigurationFileLoader.LoadXmlLoggingConfigurationFile(LogFactory logFactory, String configFile)
+   於 NLog.Config.LoggingConfigurationFileLoader.TryLoadLoggingConfiguration(LogFactory logFactory, String configFile, LoggingConfiguration& config)
+2025-09-23 10:49:20.1868 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 10:49:20.1868 Error Error has been raised. Exception: NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+2025-09-23 10:49:20.1868 Error Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+2025-09-23 10:49:20.1868 Error Failed loading from config file location: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   於 NLog.Config.XmlLoggingConfiguration..ctor(TextReader xmlSource, String filePath, LogFactory logFactory)
+   於 NLog.Config.LoggingConfigurationFileLoader.LoadXmlLoggingConfigurationFile(LogFactory logFactory, String configFile)
+   於 NLog.Config.LoggingConfigurationFileLoader.TryLoadLoggingConfiguration(LogFactory logFactory, String configFile, LoggingConfiguration& config)
+2025-09-23 10:49:21.8138 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 10:49:21.8138 Error Error has been raised. Exception: NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+2025-09-23 10:49:21.8138 Error Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+2025-09-23 10:49:21.8138 Error Failed loading from config file location: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   於 NLog.Config.XmlLoggingConfiguration..ctor(TextReader xmlSource, String filePath, LogFactory logFactory)
+   於 NLog.Config.LoggingConfigurationFileLoader.LoadXmlLoggingConfigurationFile(LogFactory logFactory, String configFile)
+   於 NLog.Config.LoggingConfigurationFileLoader.TryLoadLoggingConfiguration(LogFactory logFactory, String configFile, LoggingConfiguration& config)
+2025-09-23 10:50:23.7018 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 10:50:23.7018 Error Error has been raised. Exception: NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+2025-09-23 10:50:23.7018 Error Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+2025-09-23 10:50:23.7018 Error Failed loading from config file location: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   於 NLog.Config.XmlLoggingConfiguration..ctor(TextReader xmlSource, String filePath, LogFactory logFactory)
+   於 NLog.Config.LoggingConfigurationFileLoader.LoadXmlLoggingConfigurationFile(LogFactory logFactory, String configFile)
+   於 NLog.Config.LoggingConfigurationFileLoader.TryLoadLoggingConfiguration(LogFactory logFactory, String configFile, LoggingConfiguration& config)
+2025-09-23 10:50:24.9108 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 10:50:24.9108 Error Error has been raised. Exception: NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+2025-09-23 10:50:24.9197 Error Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+2025-09-23 10:50:24.9197 Error Failed loading from config file location: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config Exception: NLog.NLogConfigurationException: Failed loading NLog configuration. Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.  FilePath: C:\Users\user\AppData\Local\Microsoft\VisualStudio\17.0_25e6dac5\Designer\Cache\1-1707805757x86DD\NLog.config ---> NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'ObservableCollection' - Verify type-alias and check extension is included.
+   於 NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   於 NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+   於 NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   於 NLog.Config.LoggingConfigurationParser.AddNewTargetFromConfig(String targetTypeName, ValidatedConfigurationElement targetElement, Boolean asyncWrap, Dictionary`2 typeNameToDefaultTargetParameters, ValidatedConfigurationElement defaultWrapperElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseTargetsElement(ValidatedConfigurationElement targetsElement)
+   於 NLog.Config.LoggingConfigurationParser.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogSection(ILoggingConfigurationElement configSection)
+   於 NLog.Config.LoggingConfigurationParser.LoadConfig(ILoggingConfigurationElement nlogConfig, String basePath)
+   於 NLog.Config.XmlLoggingConfiguration.ParseNLogElement(ILoggingConfigurationElement nlogElement, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseTopLevel(ILoggingConfigurationElement content, String filePath, Boolean autoReloadDefault)
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   --- 內部例外狀況堆疊追蹤的結尾 ---
+   於 NLog.Config.XmlLoggingConfiguration.ParseFromTextReader(TextReader textReader, String filePath)
+   於 NLog.Config.XmlLoggingConfiguration..ctor(TextReader xmlSource, String filePath, LogFactory logFactory)
+   於 NLog.Config.LoggingConfigurationFileLoader.LoadXmlLoggingConfigurationFile(LogFactory logFactory, String configFile)
+   於 NLog.Config.LoggingConfigurationFileLoader.TryLoadLoggingConfiguration(LogFactory logFactory, String configFile, LoggingConfiguration& config)
+2025-09-23 11:01:39.6218 Info Loading assembly name: SiemensDemo
+2025-09-23 11:01:39.6218 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 11:01:39.7233 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 11:01:39.7233 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=uiLogTarget)
+2025-09-23 11:01:39.7348 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 11:01:39.7348 Info AutoReload Config File Monitor starting
+2025-09-23 11:01:39.7497 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 11:01:39.7497 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: uiLogTarget
+2025-09-23 11:01:39.7728 Info Configuration initialized.
+2025-09-23 11:02:12.7921 Info Loading assembly name: SiemensDemo
+2025-09-23 11:02:12.7945 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 11:02:12.8861 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 11:02:12.8887 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=uiLogTarget)
+2025-09-23 11:02:12.8887 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 11:02:12.9060 Info AutoReload Config File Monitor starting
+2025-09-23 11:02:12.9060 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 11:02:12.9228 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: uiLogTarget
+2025-09-23 11:02:12.9228 Info Configuration initialized.
+2025-09-23 11:02:13.9409 Info Loading assembly name: SiemensDemo
+2025-09-23 11:02:13.9409 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 11:02:14.0233 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 11:02:14.0233 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=uiLogTarget)
+2025-09-23 11:02:14.0332 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 11:02:14.0332 Info AutoReload Config File Monitor starting
+2025-09-23 11:02:14.0453 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 11:02:14.0453 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: uiLogTarget
+2025-09-23 11:02:14.0614 Info Configuration initialized.
+2025-09-23 11:03:27.1001 Info Loading assembly name: SiemensDemo
+2025-09-23 11:03:27.1001 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 11:03:27.2082 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 11:03:27.2082 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=uiLogTarget)
+2025-09-23 11:03:27.2187 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 11:03:27.2187 Info AutoReload Config File Monitor starting
+2025-09-23 11:03:27.2319 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 11:03:27.2319 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: uiLogTarget
+2025-09-23 11:03:27.2513 Info Configuration initialized.
+2025-09-23 11:03:28.2543 Info Loading assembly name: SiemensDemo
+2025-09-23 11:03:28.2543 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 11:03:28.3338 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 11:03:28.3338 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=uiLogTarget)
+2025-09-23 11:03:28.3479 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 11:03:28.3479 Info AutoReload Config File Monitor starting
+2025-09-23 11:03:28.3614 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 11:03:28.3614 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: uiLogTarget
+2025-09-23 11:03:28.3769 Info Configuration initialized.
+2025-09-23 11:11:13.6630 Info Loading assembly name: SiemensDemo
+2025-09-23 11:11:13.6630 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 11:11:13.7450 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 11:11:13.7474 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=uiLogTarget)
+2025-09-23 11:11:13.7474 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 11:11:13.7647 Info AutoReload Config File Monitor starting
+2025-09-23 11:11:13.7647 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 11:11:13.7647 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: uiLogTarget
+2025-09-23 11:11:13.7878 Info Configuration initialized.
+2025-09-23 11:15:36.4331 Info Loading assembly name: SiemensDemo
+2025-09-23 11:15:36.4361 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 11:15:36.5116 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 11:15:36.5126 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=ObservableCollectionLogUI)
+2025-09-23 11:15:36.5126 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 11:15:36.5126 Info AutoReload Config File Monitor starting
+2025-09-23 11:15:36.5316 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 11:15:36.5463 Info Configuration initialized.
+2025-09-23 11:19:43.6872 Info Loading assembly name: SiemensDemo
+2025-09-23 11:19:43.6872 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 11:19:43.7839 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 11:19:43.7839 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=ObservableCollectionLogUI)
+2025-09-23 11:19:43.7969 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 11:19:43.7969 Info AutoReload Config File Monitor starting
+2025-09-23 11:19:43.8111 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 11:19:43.8272 Info Configuration initialized.
+2025-09-23 16:16:09.3753 Info Loading assembly name: SiemensDemo
+2025-09-23 16:16:09.3753 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 16:16:09.4622 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 16:16:09.4622 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=ObservableCollectionLogUI)
+2025-09-23 16:16:09.4741 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 16:16:09.4741 Info AutoReload Config File Monitor starting
+2025-09-23 16:16:09.4862 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 16:16:09.5234 Info Configuration initialized.
+2025-09-23 16:17:14.1223 Info Loading assembly name: SiemensDemo
+2025-09-23 16:17:14.1223 Info SiemensDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null. File version: 1.0.0.0. Product version: . GlobalAssemblyCache: False
+2025-09-23 16:17:14.2374 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-09-23 16:17:14.2374 Info Registered target SiemensDemo.Views.ObservableCollectionLogUI(Name=ObservableCollectionLogUI)
+2025-09-23 16:17:14.2506 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.4.4534. Product version: 6.0.4+0f63723442db07c29eb838b0bce8b5633031a04e. GlobalAssemblyCache: False
+2025-09-23 16:17:14.2506 Info AutoReload Config File Monitor starting
+2025-09-23 16:17:14.2630 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-23 16:17:14.2846 Info Configuration initialized.

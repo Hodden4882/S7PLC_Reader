@@ -1,0 +1,105 @@
+﻿<ma:MetroWindow x:Class="SiemensDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ma="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:ap="clr-namespace:SiemensDemo.Views"
+        xmlns:local="clr-namespace:SiemensDemo.ViewModels"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel, IsDesignTimeCreatable=True}"
+        mc:Ignorable="d"
+        Background="{StaticResource MahApps.Brushes.ThemeBackground}"
+        Foreground="{StaticResource MahApps.Brushes.ThemeForeground}"
+        Title="S7 PLC Reader" Height="450" Width="650"
+        TitleCharacterCasing="Normal">
+
+    <Window.Resources>
+        <local:IsConnectedConverter x:Key="IsConnectedConverter" />
+        <local:ConnectionStatusToColorConverter x:Key="ConnectionStatusToColorConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="120"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="IP 位址:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox Text="{Binding IpAddress, Mode=TwoWay}" Width="150" Margin="0,0,10,0"/>
+            <Button Content="{Binding ConnectButtonContent,Mode=TwoWay}" Command="{Binding ConnectCommand}" Margin="0,0,5,0"
+                    Background="{Binding IsConnected, Converter={StaticResource ConnectionStatusToColorConverter}}"/>
+        </StackPanel>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="讀取">
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="DataType:" FontWeight="Bold" Margin="0,10,10,5" HorizontalAlignment="Right"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding DataTypes}" SelectedItem="{Binding SelectedDataType, Mode=TwoWay}" Width="100" Margin="0,5,10,5" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Row="1" Text="DB" FontWeight="Bold" Margin="0,10,10,5" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DbNumber}" Width="110" Margin="0,5,10,5" HorizontalAlignment="Left" ap:TextBoxProperties.IsIntegerOnly="True"/>
+                        <TextBlock Grid.Row="2" Text="Address:" FontWeight="Bold" Margin="0,10,10,5" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding StartByteAddress}" Width="110" Margin="0,5,10,5" HorizontalAlignment="Left" ap:TextBoxProperties.IsNumericAndPoint="True"/>
+                    </Grid>
+                    <Button Grid.Row="4" Content="讀取資料" Command="{Binding ReadCommand}" Margin="20,10,0,10" Width="100" HorizontalAlignment="Center"/>
+                    <Button Grid.Row="4" Content="轉傳WebApi" Command="{Binding SendApiCommand}" Margin="20,10,0,10" Width="100" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+            </TabItem>
+            <TabItem Header="寫入">
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="DataType:" FontWeight="Bold" Margin="0,10,10,5" HorizontalAlignment="Right"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding DataTypes}" SelectedItem="{Binding SelectedDataType, Mode=TwoWay}" Width="100" Margin="0,5,10,5" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Row="1" Text="DB" FontWeight="Bold" Margin="0,10,10,5" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DbNumber}" Width="110" Margin="0,5,10,5" HorizontalAlignment="Left" ap:TextBoxProperties.IsIntegerOnly="True"/>
+                        <TextBlock Grid.Row="2" Text="Address:" FontWeight="Bold" Margin="0,10,10,5" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding StartByteAddress}" Width="110" Margin="0,5,10,5" HorizontalAlignment="Left" ap:TextBoxProperties.IsNumericAndPoint="True"/>
+                        <TextBlock Grid.Row="3" Text="Data:" FontWeight="Bold" Margin="0,10,10,5" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding WriteData}" Width="110" Margin="0,5,10,5" HorizontalAlignment="Left"/>
+                    </Grid>
+                    <Button Grid.Row="4" Content="寫入資料" Command="{Binding WriteCommand}" Margin="20,10,0,10" Width="100" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Row="2" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border BorderBrush="#CCCCCC" BorderThickness="0,1,0,0" Margin="0,0,0,5">
+            </Border>
+            <ListBox x:Name="LogListBox"
+         Grid.Row="1"
+         ItemsSource="{x:Static ap:ObservableCollectionLogUI.LogMessages}"
+         Margin="0,5,0,0"
+         Loaded="LogListBox_Loaded"/>
+        </Grid>
+    </Grid>
+</ma:MetroWindow>
