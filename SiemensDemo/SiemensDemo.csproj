@@ -152,6 +152,7 @@
     </ApplicationDefinition>
     <Compile Include="Controllers\PlcController.cs" />
     <Compile Include="Models\ApiObjects.cs" />
+    <Compile Include="Models\Config.cs" />
     <Compile Include="Models\PlcDataModel.cs" />
     <Compile Include="ViewModels\ConnectionStatusToColorConverter.cs" />
     <Compile Include="ViewModels\IsConnectedConverter.cs" />

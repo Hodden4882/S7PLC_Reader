@@ -1,12 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin.Hosting;
 using Owin;
+using SiemensDemo.Models;
 using SiemensDemo.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -23,30 +25,43 @@ namespace SiemensDemo
         private IDisposable _webHost;
         protected override void OnStartup(StartupEventArgs e)
         {
-            // 在這裡手動建立 PlcService 的單例實例
+            Config _config = null;
+            try
+            {
+                // 嘗試載入或生成配置
+                _config = Config.LoadConfiguration();
+
+                // 如果 LoadConfiguration() 成功回傳，則繼續執行程式
+            }
+            catch (Exception ex)
+            {
+                // 捕捉所有其他錯誤 (無法讀取、無法解析、無法創建檔案)
+                MessageBox.Show($"設定檔發生錯誤：\n{ex.Message}",
+                                "嚴重錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // 無論什麼錯誤，只要無法取得有效配置，就關閉程式
+                Environment.Exit(1);
+                return;
+            }
+
             var plcService = new PlcService();
 
-            // 建立 ViewModel，並將 plcService 傳入其建構子
+            // 建立 ViewModel
             var vm = new MainViewModel(plcService);
 
-            // 建立主視窗，並將 ViewModel 傳入
+            // 建立主視窗
             var window = new MainWindow(vm);
             Current.MainWindow = window;
             window.Show();
 
             // 啟動 Owin Host，並將 plcService 實例傳遞給它
-            StartOwinHost(plcService);
+            StartOwinHost(plcService, _config.ApiBaseUrl);
 
             base.OnStartup(e);
         }
 
-        private void StartOwinHost(PlcService plcService)
+        private void StartOwinHost(PlcService plcService,string baseUri)
         {
-            // 配置 Web 伺服器的 URL
-            string baseUri = "http://localhost:5000/";
-
-            // 使用 Startup 類別來啟動 Web 主機
-            // 透過 WebApp.Start 的 overload，我們可以傳遞自訂的配置委派
             _webHost = WebApp.Start(baseUri, appBuilder =>
             {
                 var config = new HttpConfiguration();
@@ -72,7 +87,6 @@ namespace SiemensDemo
             base.OnExit(e);
         }
 
-        // 這是我們需要定義的依賴解析器，用來告訴 OWIN 如何取得服務
         private class OwinDependencyResolver : IDependencyResolver
         {
             private readonly PlcService _plcService;
@@ -85,7 +99,7 @@ namespace SiemensDemo
 
             public IDependencyScope BeginScope()
             {
-                // 我們可以傳回同一個 scope，因為 PlcService 是單例
+                // 可以傳回同一個 scope，因為 PlcService 是單例
                 return this;
             }
 
@@ -107,7 +121,7 @@ namespace SiemensDemo
 
             public IEnumerable<object> GetServices(Type serviceType)
             {
-                // 如果沒有多個實例，我們就傳回空的集合
+                // 如果沒有多個實例，就傳回空的集合
                 return Enumerable.Empty<object>();
             }
 

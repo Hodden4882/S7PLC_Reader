@@ -10,10 +10,12 @@ namespace SiemensDemo.ViewModels
 {
     public class PlcService
     {
+        #region Fields
         private Plc _plc;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public bool IsConnected => _plc != null && _plc.IsConnected;
+        public bool IsConnected => _plc != null && _plc.IsConnected; 
+        #endregion
 
         public async Task<bool> ConnectAsync(string ipAddress, CpuType cpuType = CpuType.S71200, short rack = 0, short slot = 1)
         {

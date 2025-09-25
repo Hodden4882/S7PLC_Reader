@@ -25,9 +25,6 @@ namespace SiemensDemo
     public partial class MainWindow : MetroWindow
     {
 
-        #region Fields
-        private readonly MainViewModel mVM;
-        #endregion
         public MainWindow()
         {
             InitializeComponent();
@@ -35,7 +32,6 @@ namespace SiemensDemo
 
         internal MainWindow(MainViewModel vm)
         {
-            mVM = vm;
             this.DataContext = vm;
 
             InitializeComponent();

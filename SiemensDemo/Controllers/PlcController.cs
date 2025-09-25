@@ -20,7 +20,7 @@ namespace SiemensDemo.Controllers
             _plcService = plcService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("read")]
         public async Task<IHttpActionResult> ReadData(int db, int byteAdr, string dataType)
         {
