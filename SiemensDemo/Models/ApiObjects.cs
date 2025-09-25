@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SiemensDemo.Models
 {
-    public class ApiObjects
+    public class PlcReply
     {
         /// <summary>
 		/// 取得或設定執行結果
@@ -21,5 +21,12 @@ namespace SiemensDemo.Models
         /// <summary>取得或設定錯誤描述</summary>
         [JsonProperty("description")]
         public string Desc { get; set; }
+    }
+
+    public class ReadReply<T> : PlcReply
+    {
+        /// <summary>取得或設定回傳的資料內容</summary>
+        [JsonProperty("data")]
+        public T Data { get; set; }
     }
 }

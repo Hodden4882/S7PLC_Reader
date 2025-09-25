@@ -170,19 +170,19 @@ namespace SiemensDemo.ViewModels
             _selectedDataType = DataTypes.FirstOrDefault();
         }
 
-        private async Task ConnectToPlc()
+        private async Task<bool> ConnectToPlc()
         {
             // 如果已經連線，則執行斷線邏輯
             if (_plcService.IsConnected)
             {
                 DisconnectFromPlc();
-                return;
+                return false;
             }
 
             if (IpAddress == null)
             {
                 Logger.Warn("請輸入 IP 位址！");
-                return;
+                return false;
             }
 
             // 呼叫服務層的連線方法
@@ -196,6 +196,7 @@ namespace SiemensDemo.ViewModels
             {
                 Logger.Warn("連線失敗，請檢查 IP 相關設定。");
             }
+            return success;
         }
 
         private void DisconnectFromPlc()

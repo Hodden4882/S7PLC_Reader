@@ -1,4 +1,5 @@
-﻿using SiemensDemo.ViewModels;
+﻿using SiemensDemo.Models;
+using SiemensDemo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,11 @@ namespace SiemensDemo.Controllers
     {
         private readonly PlcService _plcService;
 
-        // 建構子注入，將 PlcService 實例傳入
         public PlcController(PlcService plcService)
         {
             _plcService = plcService;
         }
 
-        // Web API 端點：讀取資料
         [HttpGet]
         [Route("read")]
         public async Task<IHttpActionResult> ReadData(int db, int byteAdr, string dataType)
@@ -28,7 +27,14 @@ namespace SiemensDemo.Controllers
             try
             {
                 object result = await _plcService.ReadDataAsync(db, byteAdr, dataType);
-                return Ok(new { success = true, value = result });
+                var response = new ReadReply<object>
+                {
+                    Code = 0,
+                    Desc = "讀取成功",
+                    Data = result,
+                };
+
+                return Ok(response);
             }
             catch (InvalidOperationException ex)
             {
@@ -40,7 +46,6 @@ namespace SiemensDemo.Controllers
             }
         }
 
-        // Web API 端點：寫入資料
         [HttpPost]
         [Route("write")]
         public async Task<IHttpActionResult> WriteData(int db, int byteAdr, string dataType, [FromBody] object data)
@@ -48,7 +53,12 @@ namespace SiemensDemo.Controllers
             try
             {
                 await _plcService.WriteDataAsync(db, byteAdr, dataType, data);
-                return Ok(new { success = true, message = "寫入成功" });
+                var response = new PlcReply
+                {
+                    Code = 0,
+                    Desc = "寫入成功",
+                };
+                return Ok(response);
             }
             catch (InvalidOperationException ex)
             {

@@ -113,7 +113,6 @@ namespace SiemensDemo
 
             public void Dispose()
             {
-                // 沒有需要釋放的資源，因為 PlcService 的生命週期由 App 控制
             }
         }
     }
