@@ -60,7 +60,7 @@ namespace SiemensDemo
             base.OnStartup(e);
         }
 
-        private void StartOwinHost(PlcService plcService,string baseUri)
+        private void StartOwinHost(PlcService plcService, string baseUri)
         {
             _webHost = WebApp.Start(baseUri, appBuilder =>
             {

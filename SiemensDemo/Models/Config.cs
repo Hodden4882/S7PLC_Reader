@@ -27,7 +27,7 @@ namespace SiemensDemo.Models
             // 直接回傳一個帶有預設值的實例
             return new Config
             {
-                PlcIpAddress = "192.168.0.10",
+                PlcIpAddress = "192.168.1.1",
                 ApiBaseUrl = "http://localhost:5000/",
             };
         }

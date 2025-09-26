@@ -96,7 +96,7 @@ namespace SiemensDemo.ViewModels
                         readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.Real, 1));
                         break;
                     case "STRING":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.S7String, 254));
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.String, 254));
                         string rawString = readResult as string;
                         if (rawString != null)
                         {
@@ -149,7 +149,22 @@ namespace SiemensDemo.ViewModels
                         await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, (float)data));
                         break;
                     case "STRING":
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, data as string));
+                        string stringValue = data as string;
+                        if (string.IsNullOrEmpty(stringValue))
+                        {
+                            stringValue = "";
+                        }
+
+                        // 1. 轉換為 S7.Net 要求的 byte 陣列格式
+                        // 陣列開頭包含 Max Length (1 byte) 和 Actual Length (1 byte)
+                        byte[] stringBytes = S7.Net.Types.String.ToByteArray(stringValue, stringValue.Length);
+
+                        byte[] bytesToWrite = new byte[256];
+
+                        // 將 S7.Net 生成的 stringBytes 複製到新陣列的開頭
+                        Buffer.BlockCopy(stringBytes, 0, bytesToWrite, 0, stringBytes.Length);
+
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, bytesToWrite));
                         break;
                     default:
                         throw new ArgumentException("不支援的資料型別。");

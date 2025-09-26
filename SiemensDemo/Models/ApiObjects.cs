@@ -29,4 +29,36 @@ namespace SiemensDemo.Models
         [JsonProperty("data")]
         public T Data { get; set; }
     }
+
+    /// <summary>
+    /// PLC 讀取請求的資料傳輸物件
+    /// </summary>
+    public class ReadRequest
+    {
+        [JsonProperty("db")]
+        public int Db { get; set; }
+
+        // 注意：為了處理位元位址 (如 0.0)，我們讓它保持字串
+        [JsonProperty("byteAdr")]
+        public int ByteAdr { get; set; }
+
+        [JsonProperty("dataType")]
+        public string DataType { get; set; }
+    }
+
+    public class WriteRequest
+    {
+        [JsonProperty("db")]
+        public int Db { get; set; }
+
+        // 注意：為了處理位元位址 (如 0.0)，我們讓它保持字串
+        [JsonProperty("byteAdr")]
+        public int ByteAdr { get; set; }
+
+        [JsonProperty("dataType")]
+        public string DataType { get; set; }
+
+        [JsonProperty("data")]
+        public object Data { get; set; }
+    }
 }

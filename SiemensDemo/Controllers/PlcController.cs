@@ -22,11 +22,11 @@ namespace SiemensDemo.Controllers
 
         [HttpPost]
         [Route("read")]
-        public async Task<IHttpActionResult> ReadData(int db, int byteAdr, string dataType)
+        public async Task<IHttpActionResult> ReadData(ReadRequest request)
         {
             try
             {
-                object result = await _plcService.ReadDataAsync(db, byteAdr, dataType);
+                object result = await _plcService.ReadDataAsync(request.Db, request.ByteAdr, request.DataType);
                 var response = new ReadReply<object>
                 {
                     Code = 0,
@@ -48,11 +48,11 @@ namespace SiemensDemo.Controllers
 
         [HttpPost]
         [Route("write")]
-        public async Task<IHttpActionResult> WriteData(int db, int byteAdr, string dataType, [FromBody] object data)
+        public async Task<IHttpActionResult> WriteData(WriteRequest request)
         {
             try
             {
-                await _plcService.WriteDataAsync(db, byteAdr, dataType, data);
+                await _plcService.WriteDataAsync(request.Db, request.ByteAdr, request.DataType, request.Data);
                 var response = new PlcReply
                 {
                     Code = 0,
