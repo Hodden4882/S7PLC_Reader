@@ -40,7 +40,7 @@ namespace SiemensDemo.Models
 
         // 注意：為了處理位元位址 (如 0.0)，我們讓它保持字串
         [JsonProperty("byteAdr")]
-        public int ByteAdr { get; set; }
+        public string ByteAdr { get; set; }
 
         [JsonProperty("dataType")]
         public string DataType { get; set; }
@@ -51,14 +51,13 @@ namespace SiemensDemo.Models
         [JsonProperty("db")]
         public int Db { get; set; }
 
-        // 注意：為了處理位元位址 (如 0.0)，我們讓它保持字串
         [JsonProperty("byteAdr")]
-        public int ByteAdr { get; set; }
+        public string ByteAdr { get; set; }
 
         [JsonProperty("dataType")]
         public string DataType { get; set; }
 
         [JsonProperty("data")]
-        public object Data { get; set; }
+        public string Data { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace SiemensDemo.ViewModels
 {
@@ -38,13 +39,13 @@ namespace SiemensDemo.ViewModels
                 }
                 else
                 {
-                    Logger.Warn("PlcService 連線失敗，請檢查 IP 相關設定。");
+                    Logger.Error("連線失敗，請檢查 IP 相關設定。");
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                Logger.Error($"PlcService 連線失敗：{ex.Message}");
+                Logger.Error($"連線失敗：{ex.Message}");
                 _plc = null;
                 return false;
             }
@@ -61,11 +62,37 @@ namespace SiemensDemo.ViewModels
         }
 
         // 以下是從你的 ViewModel 程式碼中重構出來的讀取方法
-        public async Task<object> ReadDataAsync(int db, int byteAdr, string dataType, byte bitAdr = 0)
+        public async Task<object> ReadDataAsync(int DbNumber, string StartByteAddress, string dataType)
         {
             if (!IsConnected)
             {
                 throw new InvalidOperationException("未連線到 PLC。");
+            }
+            if (StartByteAddress == null || DbNumber == 0 || dataType == null)
+            {
+                throw new InvalidOperationException("讀取失敗：請輸入所有必要的資訊。");
+            }
+            int byteAdr = 0;
+            byte bitAdr = 0;
+
+            if (StartByteAddress.Contains('.'))
+            {
+                var parts = StartByteAddress.Split('.');
+                if (parts.Length != 2 || !int.TryParse(parts[0], out byteAdr) || !byte.TryParse(parts[1], out bitAdr))
+                {
+                    throw new ArgumentException("起始位址格式不正確。請使用 '位元組位址.位元位址' 的格式。");
+                }
+                if (bitAdr > 7)
+                {
+                    throw new ArgumentException("位元位址必須介於 0 到 7 之間。");
+                }
+            }
+            else
+            {
+                if (!int.TryParse(StartByteAddress, out byteAdr))
+                {
+                    throw new ArgumentException("起始位址格式不正確。");
+                }
             }
 
             try
@@ -74,33 +101,35 @@ namespace SiemensDemo.ViewModels
                 switch (dataType.ToUpper())
                 {
                     case "BOOL":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.Bit, 1, bitAdr));
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, DbNumber, byteAdr, VarType.Bit, 1, bitAdr));
                         break;
-                    // ... 在這裡填入你的所有讀寫 case
                     case "BYTE":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.Byte, 1));
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, DbNumber, byteAdr, VarType.Byte, 1));
                         break;
                     case "WORD":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.Word, 1));
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, DbNumber, byteAdr, VarType.Word, 1));
                         break;
                     case "DWORD":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.DWord, 1));
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, DbNumber, byteAdr, VarType.DWord, 1));
                         break;
                     case "INT":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.Int, 1));
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, DbNumber, byteAdr, VarType.Int, 1));
                         break;
                     case "DINT":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.DInt, 1));
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, DbNumber, byteAdr, VarType.DInt, 1));
                         break;
                     case "REAL":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.Real, 1));
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, DbNumber, byteAdr, VarType.Real, 1));
                         break;
                     case "STRING":
-                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, db, byteAdr, VarType.String, 254));
-                        string rawString = readResult as string;
-                        if (rawString != null)
+                        readResult = await Task.Run(() => _plc.Read(DataType.DataBlock, DbNumber, byteAdr, VarType.String, 254));
+                        if (readResult is string rawString)
                         {
                             readResult = rawString.TrimEnd('\u0000');
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException("讀取 String 時回傳了非String型別。");
                         }
                         break;
                     default:
@@ -116,11 +145,37 @@ namespace SiemensDemo.ViewModels
             }
         }
 
-        public async Task WriteDataAsync(int db, int byteAdr, string dataType, object data, byte bitAdr = 0)
+        public async Task WriteDataAsync(int DbNumber, string StartByteAddress, string dataType, string data)
         {
             if (!IsConnected)
             {
                 throw new InvalidOperationException("未連線到 PLC。");
+            }
+            if (data == null || DbNumber == 0 || StartByteAddress == null || dataType == null)
+            {
+                throw new InvalidOperationException("寫入失敗：請輸入所有必要的資訊。");
+            }
+            int byteAdr = 0;
+            int bitAdr = 0;
+
+            if (StartByteAddress.Contains('.'))
+            {
+                var parts = StartByteAddress.Split('.');
+                if (parts.Length != 2 || !int.TryParse(parts[0], out byteAdr) || !int.TryParse(parts[1], out bitAdr))
+                {
+                    throw new ArgumentException("起始位址格式不正確。請使用 '位元組位址.位元位址' 的格式。");
+                }
+                if (bitAdr > 7)
+                {
+                    throw new ArgumentException("位元位址必須介於 0 到 7 之間。");
+                }
+            }
+            else
+            {
+                if (!int.TryParse(StartByteAddress, out byteAdr))
+                {
+                    throw new ArgumentException("起始位址格式不正確。");
+                }
             }
 
             try
@@ -128,43 +183,41 @@ namespace SiemensDemo.ViewModels
                 switch (dataType.ToUpper())
                 {
                     case "BOOL":
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, (bool)data, bitAdr));
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, DbNumber, byteAdr, bool.Parse(data), bitAdr));
                         break;
                     case "BYTE":
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, (byte)data));
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, DbNumber, byteAdr, byte.Parse(data)));
                         break;
                     case "WORD":
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, (ushort)data));
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, DbNumber, byteAdr, ushort.Parse(data)));
                         break;
                     case "INT":
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, (short)data));
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, DbNumber, byteAdr, short.Parse(data)));
                         break;
                     case "DINT":
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, (int)data));
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, DbNumber, byteAdr, int.Parse(data)));
                         break;
                     case "DWORD":
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, (uint)data));
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, DbNumber, byteAdr, uint.Parse(data)));
                         break;
                     case "REAL":
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, (float)data));
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, DbNumber, byteAdr, float.Parse(data)));
                         break;
                     case "STRING":
-                        string stringValue = data as string;
-                        if (string.IsNullOrEmpty(stringValue))
+                        if (string.IsNullOrEmpty(data))
                         {
-                            stringValue = "";
+                            data = "";
                         }
 
-                        // 1. 轉換為 S7.Net 要求的 byte 陣列格式
                         // 陣列開頭包含 Max Length (1 byte) 和 Actual Length (1 byte)
-                        byte[] stringBytes = S7.Net.Types.String.ToByteArray(stringValue, stringValue.Length);
+                        byte[] stringBytes = S7.Net.Types.String.ToByteArray(data, data.Length);
 
                         byte[] bytesToWrite = new byte[256];
 
                         // 將 S7.Net 生成的 stringBytes 複製到新陣列的開頭
                         Buffer.BlockCopy(stringBytes, 0, bytesToWrite, 0, stringBytes.Length);
 
-                        await Task.Run(() => _plc.Write(DataType.DataBlock, db, byteAdr, bytesToWrite));
+                        await Task.Run(() => _plc.Write(DataType.DataBlock, DbNumber, byteAdr, bytesToWrite));
                         break;
                     default:
                         throw new ArgumentException("不支援的資料型別。");

@@ -10,7 +10,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 
@@ -24,10 +26,9 @@ namespace SiemensDemo.ViewModels
         private PlcDataModel _plcData = new PlcDataModel();
         private bool _isConnected;
         private string _connectButtonContent = "連線";
-        private string _dbNumber;
+        private int _dbNumber;
         private string _startByteAddress;
         private string _bitAddress;
-        private object _lastReadValue;
         private string _selectedDataType;
         private string _writeData;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -69,7 +70,7 @@ namespace SiemensDemo.ViewModels
             }
         }
 
-        public string DbNumber
+        public int DbNumber
         {
             get => _dbNumber;
             set
@@ -95,16 +96,6 @@ namespace SiemensDemo.ViewModels
             set
             {
                 _bitAddress = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public object LastReadValue
-        {
-            get => _lastReadValue;
-            set
-            {
-                _lastReadValue = value;
                 OnPropertyChanged();
             }
         }
@@ -186,17 +177,8 @@ namespace SiemensDemo.ViewModels
             }
 
             // 呼叫服務層的連線方法
-            bool success = await _plcService.ConnectAsync(IpAddress);
-            IsConnected = success;
-            if (success)
-            {
-                Logger.Info("連線成功！");
-            }
-            else
-            {
-                Logger.Warn("連線失敗，請檢查 IP 相關設定。");
-            }
-            return success;
+            IsConnected = await _plcService.ConnectAsync(IpAddress);
+            return IsConnected;
         }
 
         private void DisconnectFromPlc()
@@ -208,42 +190,9 @@ namespace SiemensDemo.ViewModels
 
         private async Task ReadFromPlc()
         {
-            // 不再需要 IsConnected 檢查，因為服務層會處理
-            if (!int.TryParse(DbNumber, out int db))
-            {
-                Logger.Error("錯誤：DB 編號或數量格式不正確！");
-                return;
-            }
-
-            int byteAdr = 0;
-            byte bitAdr = 0;
-
-            if (StartByteAddress.Contains('.'))
-            {
-                var parts = StartByteAddress.Split('.');
-                if (parts.Length != 2 || !int.TryParse(parts[0], out byteAdr) || !byte.TryParse(parts[1], out bitAdr))
-                {
-                    Logger.Error("錯誤：起始位址格式不正確。請使用 '位元組位址.位元位址' 的格式。");
-                    return;
-                }
-                if (bitAdr > 7)
-                {
-                    Logger.Error("錯誤：位元位址必須介於 0 到 7 之間。");
-                    return;
-                }
-            }
-            else
-            {
-                if (!int.TryParse(StartByteAddress, out byteAdr))
-                {
-                    Logger.Error("錯誤：起始位址格式不正確！");
-                    return;
-                }
-            }
-
-
+            Logger.Info($"介面讀取 DB:{DbNumber}, Adress:{StartByteAddress}, DataType:{SelectedDataType}");
             // 呼叫服務層的讀取方法
-            object readResult = await _plcService.ReadDataAsync(db, byteAdr, SelectedDataType, bitAdr);
+            object readResult = await _plcService.ReadDataAsync(DbNumber, StartByteAddress, SelectedDataType);
 
             // 根據類型將結果賦值給 ViewModel 的屬性
             switch (SelectedDataType.ToUpper())
@@ -273,87 +222,13 @@ namespace SiemensDemo.ViewModels
                     _plcData.TestString = readResult as string;
                     break;
             }
-
-            LastReadValue = readResult;
         }
 
         private async Task WriteToPlc()
         {
-            if (WriteData == null || !int.TryParse(DbNumber, out int db) || !int.TryParse(StartByteAddress, out int byteAdr))
-            {
-                Logger.Warn("寫入失敗：請輸入所有必要的資訊。");
-                return;
-            }
-
-            object dataToWrite = null;
-            switch (SelectedDataType.ToUpper())
-            {
-                case "BOOL":
-                    if (!bool.TryParse(WriteData, out bool boolVal))
-                    {
-                        Logger.Warn("寫入失敗：布林值格式不正確。請輸入 'true' 或 'false'。");
-                        return;
-                    }
-                    dataToWrite = boolVal;
-                    break;
-                case "BYTE":
-                    if (!byte.TryParse(WriteData, out byte byteVal))
-                    {
-                        Logger.Warn("寫入失敗：位元組格式不正確。");
-                        return;
-                    }
-                    dataToWrite = byteVal;
-                    break;
-                case "WORD":
-                    if (!ushort.TryParse(WriteData, out ushort wordVal))
-                    {
-                        Logger.Warn("寫入失敗：字組格式不正確。");
-                        return;
-                    }
-                    dataToWrite = wordVal;
-                    break;
-                case "DWORD":
-                    if (!uint.TryParse(WriteData, out uint dwordVal))
-                    {
-                        Logger.Warn("寫入失敗：雙字組格式不正確。");
-                        return;
-                    }
-                    dataToWrite = dwordVal;
-                    break;
-                case "INT":
-                    if (!short.TryParse(WriteData, out short intVal))
-                    {
-                        Logger.Warn("寫入失敗：整數格式不正確。");
-                        return;
-                    }
-                    dataToWrite = intVal;
-                    break;
-                case "DINT":
-                    if (!int.TryParse(WriteData, out int dintVal))
-                    {
-                        Logger.Warn("寫入失敗：雙整數格式不正確。");
-                        return;
-                    }
-                    dataToWrite = dintVal;
-                    break;
-                case "REAL":
-                    if (!float.TryParse(WriteData, out float realVal))
-                    {
-                        Logger.Warn("寫入失敗：浮點數格式不正確。");
-                        return;
-                    }
-                    dataToWrite = realVal;
-                    break;
-                case "STRING":
-                    dataToWrite = WriteData;
-                    break;
-                default:
-                    Logger.Warn($"寫入失敗：不支援的資料型別 '{SelectedDataType}'。");
-                    return;
-            }
-
+            Logger.Info($"介面寫入 DB:{DbNumber}, Adress:{StartByteAddress}, DataType:{SelectedDataType}, Data:{WriteData}");
             // 呼叫服務層的寫入方法
-            await _plcService.WriteDataAsync(db, byteAdr, SelectedDataType, dataToWrite);
+            await _plcService.WriteDataAsync(DbNumber, StartByteAddress, SelectedDataType, WriteData);
         }
 
         private async Task SendToWebApi()
@@ -418,6 +293,10 @@ namespace SiemensDemo.ViewModels
                 try
                 {
                     await _execute();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"執行操作失敗: {ex.Message}", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
