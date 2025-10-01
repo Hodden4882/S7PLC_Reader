@@ -141,6 +141,7 @@ namespace SiemensDemo.ViewModels
         public MainViewModel(PlcService plcService)
         {
             _plcService = plcService;
+            _plcService.ConnectionStatusChanged += OnPlcConnectionStatusChanged;
 
             // 初始化命令
             ConnectCommand = new AsyncRelayCommand(ConnectToPlc);
@@ -194,7 +195,6 @@ namespace SiemensDemo.ViewModels
             // 呼叫服務層的讀取方法
             object readResult = await _plcService.ReadDataAsync(DbNumber, StartByteAddress, SelectedDataType);
 
-            // 根據類型將結果賦值給 ViewModel 的屬性
             switch (SelectedDataType.ToUpper())
             {
                 case "BOOL":
@@ -229,6 +229,34 @@ namespace SiemensDemo.ViewModels
             Logger.Info($"介面寫入 DB:{DbNumber}, Adress:{StartByteAddress}, DataType:{SelectedDataType}, Data:{WriteData}");
             // 呼叫服務層的寫入方法
             await _plcService.WriteDataAsync(DbNumber, StartByteAddress, SelectedDataType, WriteData);
+
+            switch (SelectedDataType.ToUpper())
+            {
+                case "BOOL":
+                    _plcData.TestBool = bool.Parse(WriteData);
+                    break;
+                case "BYTE":
+                    _plcData.TestByte = byte.Parse(WriteData);
+                    break;
+                case "WORD":
+                    _plcData.TestWord = ushort.Parse(WriteData);
+                    break;
+                case "DWORD":
+                    _plcData.TestDWord = uint.Parse(WriteData);
+                    break;
+                case "INT":
+                    _plcData.TestInt = short.Parse(WriteData);
+                    break;
+                case "DINT":
+                    _plcData.TestDint = int.Parse(WriteData);
+                    break;
+                case "REAL":
+                    _plcData.TestReal = float.Parse(WriteData);
+                    break;
+                case "STRING":
+                    _plcData.TestString = WriteData;
+                    break;
+            }
         }
 
         private async Task SendToWebApi()
@@ -238,20 +266,22 @@ namespace SiemensDemo.ViewModels
                 // 使用 HttpClient 發送 POST 請求到你的 Web API
                 using (var client = new HttpClient())
                 {
-                    var apiUrl = $"http://localhost:5000/";
+                    var apiUrl = "https://462c5fc3-a758-469b-a95a-045ab639edd3.mock.pstmn.io/api/plc/send";
                     var jsonContent = JsonConvert.SerializeObject(_plcData);
                     var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
+                    Logger.Info($"轉傳Web Api:{jsonContent}");
                     var response = await client.PostAsync(apiUrl, content);
+                    var responseContent = await response.Content.ReadAsStringAsync();
 
                     if (response.IsSuccessStatusCode)
                     {
-                        Logger.Info("資料成功透過 API 寫入！");
+                        var apiReply = JsonConvert.DeserializeObject<PlcReply>(responseContent);
+                        Logger.Info($"資料成功寫入！ Code : {apiReply.Code}, Desc : {apiReply.Desc}");
                     }
                     else
                     {
-                        var responseContent = await response.Content.ReadAsStringAsync();
-                        Logger.Error($"API 寫入失敗：狀態碼 {response.StatusCode}，回應：{responseContent}");
+                        Logger.Error($"API 寫入失敗：狀態碼 {response.StatusCode}");
                     }
                 }
             }
@@ -267,6 +297,17 @@ namespace SiemensDemo.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
+
+        #region Event
+        private void OnPlcConnectionStatusChanged(object sender, bool isConnected)
+        {
+            // 確保所有 UI 更新都在 WPF 的主執行緒上執行
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                IsConnected = isConnected;
+            });
+        } 
         #endregion
 
         // 實現 ICommand 

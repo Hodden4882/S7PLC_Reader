@@ -12,11 +12,19 @@ namespace SiemensDemo.ViewModels
     public class PlcService
     {
         #region Fields
+        private string _ipAddress;
         private Plc _plc;
+        public event EventHandler<bool> ConnectionStatusChanged;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public bool IsConnected => _plc != null && _plc.IsConnected; 
         #endregion
+
+        public PlcService(string ipAddress)
+        {
+            _ipAddress = ipAddress;
+            //Task.Run(() => ConnectAsync(ipAddress));
+        }
 
         public async Task<bool> ConnectAsync(string ipAddress, CpuType cpuType = CpuType.S71200, short rack = 0, short slot = 1)
         {
@@ -35,11 +43,13 @@ namespace SiemensDemo.ViewModels
                 if (_plc.IsConnected)
                 {
                     Logger.Info("PlcService 連線成功！");
+                    OnConnectionStatusChanged(true);
                     return true;
                 }
                 else
                 {
                     Logger.Error("連線失敗，請檢查 IP 相關設定。");
+                    OnConnectionStatusChanged(false);
                     return false;
                 }
             }
@@ -47,6 +57,7 @@ namespace SiemensDemo.ViewModels
             {
                 Logger.Error($"連線失敗：{ex.Message}");
                 _plc = null;
+                OnConnectionStatusChanged(false);
                 return false;
             }
         }
@@ -61,7 +72,6 @@ namespace SiemensDemo.ViewModels
             }
         }
 
-        // 以下是從你的 ViewModel 程式碼中重構出來的讀取方法
         public async Task<object> ReadDataAsync(int DbNumber, string StartByteAddress, string dataType)
         {
             if (!IsConnected)
@@ -229,6 +239,12 @@ namespace SiemensDemo.ViewModels
                 Logger.Error($"PLC 寫入失敗：{ex.Message}");
                 throw;
             }
+        }
+
+        protected void OnConnectionStatusChanged(bool isConnected)
+        {
+            // 如果事件有訂閱者，則觸發事件
+            ConnectionStatusChanged?.Invoke(this, isConnected);
         }
     }
 }

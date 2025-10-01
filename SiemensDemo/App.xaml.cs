@@ -28,23 +28,17 @@ namespace SiemensDemo
             Config _config = null;
             try
             {
-                // 嘗試載入或生成配置
                 _config = Config.LoadConfiguration();
-
-                // 如果 LoadConfiguration() 成功回傳，則繼續執行程式
             }
             catch (Exception ex)
             {
-                // 捕捉所有其他錯誤 (無法讀取、無法解析、無法創建檔案)
                 MessageBox.Show($"設定檔發生錯誤：\n{ex.Message}",
                                 "嚴重錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                // 無論什麼錯誤，只要無法取得有效配置，就關閉程式
                 Environment.Exit(1);
                 return;
             }
 
-            var plcService = new PlcService();
+            var plcService = new PlcService(_config.PlcIpAddress);
 
             // 建立 ViewModel
             var vm = new MainViewModel(plcService);
