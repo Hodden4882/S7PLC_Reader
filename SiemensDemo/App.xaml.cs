@@ -38,7 +38,7 @@ namespace SiemensDemo
                 return;
             }
 
-            var plcService = new PlcService(_config.PlcIpAddress);
+            var plcService = new PlcService();
 
             // 建立 ViewModel
             var vm = new MainViewModel(plcService);

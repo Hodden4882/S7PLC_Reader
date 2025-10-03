@@ -20,9 +20,9 @@ namespace SiemensDemo.ViewModels
         public bool IsConnected => _plc != null && _plc.IsConnected; 
         #endregion
 
-        public PlcService(string ipAddress)
+        public PlcService()
         {
-            _ipAddress = ipAddress;
+            //_ipAddress = ipAddress;
             //Task.Run(() => ConnectAsync(ipAddress));
         }
 
