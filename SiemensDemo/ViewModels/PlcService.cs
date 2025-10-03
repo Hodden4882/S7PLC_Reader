@@ -12,19 +12,11 @@ namespace SiemensDemo.ViewModels
     public class PlcService
     {
         #region Fields
-        private string _ipAddress;
         private Plc _plc;
         public event EventHandler<bool> ConnectionStatusChanged;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         public bool IsConnected => _plc != null && _plc.IsConnected; 
         #endregion
-
-        public PlcService()
-        {
-            //_ipAddress = ipAddress;
-            //Task.Run(() => ConnectAsync(ipAddress));
-        }
 
         public async Task<bool> ConnectAsync(string ipAddress, CpuType cpuType = CpuType.S71200, short rack = 0, short slot = 1)
         {

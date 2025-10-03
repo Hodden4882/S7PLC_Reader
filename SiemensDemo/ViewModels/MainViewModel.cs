@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -32,6 +33,10 @@ namespace SiemensDemo.ViewModels
         private string _selectedDataType;
         private string _writeData;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private CancellationTokenSource _cts;
+        private bool _isTestRunning;
+        int count = 0;
+        long times = 0;
         public ObservableCollection<string> DataTypes { get; } = new ObservableCollection<string>();
         #endregion
 
@@ -129,6 +134,19 @@ namespace SiemensDemo.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public bool IsTestRunning
+        {
+            get => _isTestRunning;
+            set
+            {
+                _isTestRunning = value;
+                OnPropertyChanged();
+                // 更新按鈕狀態 (如果有的話)
+                (StartTestCommand as AsyncRelayCommand)?.RaiseCanExecuteChanged();
+                (StopTestCommand as AsyncRelayCommand)?.RaiseCanExecuteChanged();
+            }
+        }
         #endregion
 
         #region ICommand
@@ -136,6 +154,8 @@ namespace SiemensDemo.ViewModels
         public ICommand ReadCommand { get; }
         public ICommand WriteCommand { get; }
         public ICommand SendApiCommand { get; }
+        public ICommand StartTestCommand { get; private set; }
+        public ICommand StopTestCommand { get; private set; }
         #endregion
 
         public MainViewModel(PlcService plcService)
@@ -148,6 +168,12 @@ namespace SiemensDemo.ViewModels
             ReadCommand = new AsyncRelayCommand(ReadFromPlc, () => _plcService.IsConnected);
             WriteCommand = new AsyncRelayCommand(WriteToPlc, () => _plcService.IsConnected);
             SendApiCommand = new AsyncRelayCommand(SendToWebApi, () => _plcService.IsConnected);
+            StartTestCommand = new AsyncRelayCommand(RunContinuousTest,
+        () => !_isTestRunning);
+
+            // 只有在測試運行時才能停止
+            StopTestCommand = new AsyncRelayCommand(StopContinuousTest,
+                () => _isTestRunning);
 
             // 初始化 ComboBox 的資料
             DataTypes.Add("BOOL");
@@ -289,6 +315,74 @@ namespace SiemensDemo.ViewModels
             {
                 Logger.Error($"發送 API 請求失敗：{ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// 啟動 PLC 循環讀寫測試
+        /// </summary>
+        private async Task RunContinuousTest()
+        {
+            // 確保連線正常
+            if (!_plcService.IsConnected)
+            {
+                Logger.Warn("PLC 未連線，無法啟動循環測試。");
+                return;
+            }
+
+            _cts = new CancellationTokenSource();
+            var token = _cts.Token;
+            IsTestRunning = true;
+            Logger.Info("--- 開始執行 PLC 循環讀寫測試 ---");
+
+            try
+            {
+                string writeValue = "10";
+                int db = 1000;
+                string dataType = "INT"; 
+                string byteAdr = "2";
+                Stopwatch stopwatch = new Stopwatch();
+
+                while (!token.IsCancellationRequested)
+                {
+                    stopwatch.Start();
+                    await _plcService.WriteDataAsync(db, byteAdr, dataType, writeValue);
+                    count += 1;
+                    // object readValue = await _plcService.ReadDataAsync(db, byteAdr, dataType);
+                    stopwatch.Stop();
+                    long elapsedMs = stopwatch.ElapsedMilliseconds;
+                    times += elapsedMs;
+                    Logger.Info($"測試：寫入值 {writeValue}, 次數 {count},耗時 {elapsedMs}");
+
+                    await Task.Delay(50, token);
+                }
+                
+            }
+            catch (OperationCanceledException)
+            {
+                Logger.Info("--- PLC 循環讀寫壓力測試已終止 ---");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"PLC 循環讀寫測試發生錯誤: {ex.Message}");
+            }
+            finally
+            {
+                float agvtime = times / count;
+                Logger.Info($"平均時間 {agvtime}");
+                IsTestRunning = false;
+                _cts.Dispose();
+                _cts = null;
+            }
+        }
+
+        /// <summary>
+        /// 停止 PLC 循環讀寫測試
+        /// </summary>
+        private Task StopContinuousTest()
+        {
+            Logger.Warn("收到終止 PLC 循環讀寫測試的請求...");
+            _cts?.Cancel(); // 發出取消信號
+            return Task.CompletedTask;
         }
 
         #region INotifyPropertyChanged

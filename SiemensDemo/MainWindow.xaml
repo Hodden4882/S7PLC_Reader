@@ -85,6 +85,15 @@
                     <Button Grid.Row="4" Content="寫入資料" Command="{Binding WriteCommand}" Margin="20,10,0,10" Width="100" HorizontalAlignment="Center"/>
                 </StackPanel>
             </TabItem>
+            <TabItem Header="測試">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="啟動循環測試" Command="{Binding StartTestCommand}" Margin="5" Height="80"/>
+
+                    <Button Content="停止循環測試" Command="{Binding StopTestCommand}" Margin="5" Height="80"/>
+
+                    <TextBlock Text="{Binding IsTestRunning, StringFormat='測試狀態: {0}'}" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </TabItem>
         </TabControl>
 
         <Grid Grid.Row="2" Margin="10">
